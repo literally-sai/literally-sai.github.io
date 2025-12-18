@@ -1,8 +1,59 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #eff1f5;
+  --foreground: #4c4f69;
+  --dot-color: #bcc0cc;
+
+  --color-pink: #ea76cb;
+  --color-blue: #1e66f5;
+  --color-orange: #fe640b;
+  --color-terminal: #bcc0cc;
+  --color-profile-lite: #ccd0da;
+  --card-bg: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(.light) {
+    --background: #1e1e2e;
+    --foreground: #cdd6f4;
+    --dot-color: #65677a;
+
+    --color-pink: #f5c2e7;
+    --color-blue: #89b4fa;
+    --color-orange: #fab387;
+    --color-terminal: #11111b;
+    --color-profile-lite: #181825;
+    --card-bg: #313244;
+  }
+}
+
+.dark {
+  --background: #1e1e2e;
+  --foreground: #cdd6f4;
+  --dot-color: #45475a;
+
+  --color-pink: #f5c2e7;
+  --color-blue: #89b4fa;
+  --color-orange: #fab387;
+  --color-terminal: #11111b;
+  --color-profile-lite: #181825;
+  --card-bg: #313244;
+}
+
+.light {
+  --background: #eff1f5;
+  --foreground: #4c4f69;
+  --dot-color: #bcc0cc;
+
+  --color-pink: #ea76cb;
+  --color-blue: #1e66f5;
+  --color-orange: #fe640b;
+  --color-terminal: #e6e9ef;
+  --color-profile-lite: #ccd0da;
+  --card-bg: #ffffff;
 }
 
 @theme inline {
@@ -10,17 +61,36 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-pink: var(--color-pink);
+  --color-blue: var(--color-blue);
+  --color-orange: var(--color-orange);
+  --color-terminal: var(--color-terminal);
+  --color-profile-lite: var(--color-profile-lite);
+  --color-card-bg: var(--card-bg);
+
+  --shadow-brutal: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-brutal-hover: 6px 6px 0px 0px rgba(0, 0, 0, 1);
+  --breakpoint-xs: 475px;
 }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+
+  font-family: var(--font-mono), monospace;
+
+  background-color: var(--background);
+  background-image: radial-gradient(
+    circle,
+    var(--dot-color) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 24px 24px;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    background-image 0.2s ease;
 }
