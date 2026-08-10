@@ -1,6 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/cn";
+import { brutalBase, brutalShadowSm } from "@/lib/styles";
 
 export default function ShareButton({ title }: { title: string }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,8 +27,8 @@ export default function ShareButton({ title }: { title: string }) {
         setCopied(false);
         setIsOpen(false);
       }, 1200);
-    } catch (err) {
-      console.error("Failed to copy link: ", err);
+    } catch (error) {
+      console.error("Failed to copy link: ", error);
     }
   };
 
@@ -37,12 +39,17 @@ export default function ShareButton({ title }: { title: string }) {
   return (
     <div className="relative" ref={menuRef}>
       <button
+        type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className={`font-mono font-bold text-xs uppercase tracking-wider px-3 py-1.5 border-2 border-black rounded-xl shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] transition-all hover:bg-[#4cc9f0] hover:text-black active:translate-y-0.5 active:translate-x-0.5 active:shadow-none flex items-center gap-1.5 ${
+        aria-expanded={isOpen}
+        className={cn(
+          "px-3 py-1.5 flex items-center gap-1.5 hover:bg-[#4cc9f0] hover:text-black",
+          brutalBase,
+          brutalShadowSm,
           isOpen
             ? "bg-[#4cc9f0] text-black"
-            : "bg-white dark:bg-zinc-800 text-foreground"
-        }`}
+            : "bg-white dark:bg-zinc-800 text-foreground",
+        )}
       >
         <svg
           suppressHydrationWarning
@@ -51,6 +58,7 @@ export default function ShareButton({ title }: { title: string }) {
           stroke="currentColor"
           strokeWidth="2.5"
           viewBox="0 0 24 24"
+          aria-hidden="true"
         >
           <path
             strokeLinecap="round"
@@ -64,6 +72,7 @@ export default function ShareButton({ title }: { title: string }) {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-zinc-900 border-2 border-black rounded-xl shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] z-50 overflow-hidden font-mono text-[11px] font-bold uppercase tracking-wide">
           <button
+            type="button"
             onClick={handleCopyLink}
             className={`w-full text-left px-4 py-2.5 flex items-center gap-2 border-b-2 border-black transition-colors ${
               copied

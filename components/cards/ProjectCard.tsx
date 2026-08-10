@@ -1,20 +1,8 @@
-interface ProfileCardProps {
-  title: string;
-  status: string;
-  date: string;
-  thumbnail: string;
-  tags: string[];
-  link: string;
-}
+import { formatMonth } from "@/lib/format";
+import type { Project } from "@/lib/types";
 
-export default function ProfileCard({
-  title,
-  status,
-  date,
-  thumbnail,
-  tags,
-  link,
-}: ProfileCardProps) {
+export default function ProjectCard({ project }: { project: Project }) {
+  const { title, status, date, thumbnail, tags, link } = project;
   return (
     <a
       href={link}
@@ -45,6 +33,7 @@ export default function ProfileCard({
             stroke="currentColor"
             strokeWidth="3"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -57,7 +46,7 @@ export default function ProfileCard({
 
       <div className="p-3 flex items-center justify-between gap-2 bg-card-bg">
         <span className="bg-[#a0c4ff] text-black border-2 border-black font-mono font-bold text-[11px] px-2.5 py-0.5 rounded-xl shadow-[1.5px_1.5px_0px_0px_rgba(0,0,0,1)] update-capsule">
-          {date}
+          {formatMonth(date)}
         </span>
 
         <div className="flex gap-1.5 flex-wrap justify-end">
